@@ -1,0 +1,103 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Test accordéons</title>
+<style>
+body{font-family:sans-serif;width:1200px;margin:0;padding:20px 60px}
+section{border:1px solid #ddd;margin:14px 0;padding:10px 16px}
+h2{font-size:16px;margin:4px 0 8px;color:#666}
+.q{cursor:pointer;font-weight:bold;padding:8px 0}
+/* 2. max-height */
+.mh .a{max-height:0;overflow:hidden;transition:max-height .7s ease}
+.mh.open .a{max-height:300px}
+/* 5. checkbox */
+.cb input{position:absolute;opacity:0;pointer-events:none}
+.cb .a{display:none}
+.cb input:checked ~ .a{display:block}
+/* 7. hover */
+.hv .a{display:none}
+.hv:hover .a{display:block}
+/* 4. collapse */
+.collapse:not(.show){display:none}
+.collapsing{height:0;overflow:hidden;transition:height .35s ease}
+/* 15 opacity fade */
+.fade .a{opacity:0;height:0;overflow:hidden;transition:opacity .9s}
+.fade.on .a{opacity:1;height:auto}
+</style></head><body>
+
+<section class="paragraph--type--t1"><h2>1. Animation JS lente (800 ms), sans aria</h2>
+<div class="faq-item"><div class="q faq-q" role="button" tabindex="0">Question animée JS</div><div class="a" style="height:0;overflow:hidden"><p>Réponse animée en JavaScript.</p></div></div></section>
+
+<section class="paragraph--type--t2 mh"><h2>2. max-height CSS 700 ms</h2>
+<div class="accordion"><button class="q">Question max-height</button><div class="a"><p>Réponse en transition CSS.</p></div></div></section>
+
+<section class="paragraph--type--t3"><h2>3. details / summary</h2>
+<details><summary>Question details</summary><p>Réponse details.</p></details></section>
+
+<section class="paragraph--type--t4"><h2>4. Collapse type Bootstrap</h2>
+<button class="q" data-bs-toggle="collapse" aria-controls="c4" aria-expanded="false">Question collapse</button><div id="c4" class="collapse"><p>Réponse collapse.</p></div></section>
+
+<section class="paragraph--type--t5 cb faq"><h2>5. Case à cocher CSS (sans JS)</h2>
+<label class="q" for="i5" role="button">Question CSS pure</label><input type="checkbox" id="i5"><div class="a"><p>Réponse CSS pure.</p></div></section>
+
+<section class="paragraph--type--t6"><h2>6. Gestionnaire délégué sur le parent (dl/dt)</h2>
+<dl class="faq-list" id="dl6"><dt>Question déléguée</dt><dd hidden>Réponse déléguée.</dd></dl></section>
+
+<section class="paragraph--type--t7 faq"><h2>7. Ouverture au survol uniquement</h2>
+<div class="hv"><span class="q" role="button" aria-expanded="false">Question au survol</span><div class="a">Réponse au survol.</div></div></section>
+
+<section class="paragraph--type--t8"><h2>8. Déclencheurs emboîtés</h2>
+<div class="accordion__item" aria-expanded="false"><button class="q accordion__btn" aria-expanded="false">Question emboîtée</button><div class="a" hidden>Réponse emboîtée.</div></div></section>
+
+<section class="paragraph--type--t9"><h2>9. CASSÉ : aucun gestionnaire</h2>
+<button class="q" aria-expanded="false" aria-controls="c9">Question cassée</button><div id="c9" hidden>Réponse jamais visible.</div></section>
+
+<section class="paragraph--type--t10"><h2>10. CASSÉ : réponse vide</h2>
+<button class="q b10" aria-expanded="false" aria-controls="c10">Question vide</button><div id="c10" hidden style="padding:12px 0"></div></section>
+
+<section class="paragraph--type--t11"><h2>11. Réponse chargée en différé (1,2 s)</h2>
+<div class="faq-item"><button class="q b11" aria-expanded="false">Question différée</button><div class="a"></div></div></section>
+
+<section class="paragraph--type--t12"><h2>12. Réponse créée au clic</h2>
+<div class="faq-item"><button class="q b12">Question créée</button></div></section>
+
+<section class="paragraph--type--t13"><h2>13. Lien ancre qui déplie</h2>
+<div class="faq-item"><a class="q a13" href="#r13" aria-expanded="false">Question ancre</a><div id="r13" class="a" style="display:none">Réponse ancre.</div></div></section>
+
+<section class="paragraph--type--t14"><h2>14. Plusieurs questions, une seule ouverte à la fois</h2>
+<div class="accordion multi">
+<div class="it"><button class="q m" aria-expanded="true" aria-controls="m1">Question A (ouverte)</button><div id="m1">Réponse A.</div></div>
+<div class="it"><button class="q m" aria-expanded="false" aria-controls="m2">Question B</button><div id="m2" hidden>Réponse B.</div></div>
+<div class="it"><button class="q m" aria-expanded="false" aria-controls="m3">Question C</button><div id="m3" hidden>Réponse C.</div></div>
+</div></section>
+
+<section class="paragraph--type--t15 fade faq"><h2>15. Fondu d'opacité lent</h2>
+<button class="q b15">Question fondu</button><div class="a">Réponse en fondu.</div></section>
+
+<section class="paragraph--type--t16"><h2>16. Gestionnaire sur mousedown seulement</h2>
+<div class="faq-item"><button class="q b16" aria-expanded="false" aria-controls="c16">Question mousedown</button><div id="c16" hidden>Réponse mousedown.</div></div></section>
+
+<script>
+// 1
+document.querySelector('.faq-q').addEventListener('click',e=>{const a=e.currentTarget.nextElementSibling;const open=a.style.height!=='0px';if(open){a.style.height='0px';return}const full=a.scrollHeight;let h=0;const t=setInterval(()=>{h+=full/16;if(h>=full){h=full;clearInterval(t)}a.style.height=h+'px'},50)});
+// 2
+document.querySelector('.mh .q').addEventListener('click',()=>document.querySelector('.mh').classList.toggle('open'));
+// 4
+document.querySelector('[data-bs-toggle]').addEventListener('click',e=>{const b=e.currentTarget,c=document.getElementById('c4');if(c.classList.contains('show')){c.classList.remove('show');b.setAttribute('aria-expanded','false');return}c.classList.add('collapsing');c.classList.add('show');setTimeout(()=>{c.classList.remove('collapsing')},350);b.setAttribute('aria-expanded','true')});
+// 6
+document.getElementById('dl6').addEventListener('click',e=>{const dt=e.target.closest('dt');if(!dt)return;const dd=dt.nextElementSibling;dd.hidden=!dd.hidden});
+// 8
+document.querySelector('.accordion__btn').addEventListener('click',e=>{const b=e.currentTarget,a=b.nextElementSibling;a.hidden=!a.hidden;b.setAttribute('aria-expanded',String(!a.hidden))});
+// 10
+document.querySelector('.b10').addEventListener('click',e=>{const a=document.getElementById('c10');a.hidden=!a.hidden;e.currentTarget.setAttribute('aria-expanded',String(!a.hidden))});
+// 11
+document.querySelector('.b11').addEventListener('click',e=>{const b=e.currentTarget,a=b.nextElementSibling;if(a.textContent){a.textContent='';b.setAttribute('aria-expanded','false');return}b.setAttribute('aria-expanded','true');setTimeout(()=>{a.textContent='Réponse chargée en différé.'},1200)});
+// 12
+document.querySelector('.b12').addEventListener('click',e=>{const it=e.currentTarget.parentElement,ex=it.querySelector('.gen');if(ex){ex.remove();return}const d=document.createElement('div');d.className='gen';d.textContent='Réponse créée au clic.';it.appendChild(d)});
+// 13
+document.querySelector('.a13').addEventListener('click',e=>{e.preventDefault();const r=document.getElementById('r13');r.style.display=r.style.display==='none'?'block':'none'});
+// 14
+document.querySelectorAll('.m').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.m').forEach(o=>{const t=document.getElementById(o.getAttribute('aria-controls'));const on=o===b&&o.getAttribute('aria-expanded')!=='true';o.setAttribute('aria-expanded',String(on));t.hidden=!on})}));
+// 15
+document.querySelector('.b15').addEventListener('click',()=>document.querySelector('.fade').classList.toggle('on'));
+// 16
+document.querySelector('.b16').addEventListener('mousedown',e=>{const a=document.getElementById('c16');a.hidden=!a.hidden;e.currentTarget.setAttribute('aria-expanded',String(!a.hidden))});
+</script>
+</body></html>
