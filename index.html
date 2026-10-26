@@ -7,34 +7,27 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap">
 </head>
 <body>
 <style>
-body{margin:0}
-/* Layout : la table du correcteur. Formulaire en haut, puis rapport en deux colonnes : liste des corrections | épreuve annotée */
+html,body{margin:0}
+/* Layout : charte Harmonie Mutuelle 2026. Page blanche et aérée, une alvéole en dégradé en bord de page, formulaire puis rapport en deux colonnes. Thème clair unique, comme la marque. */
 :root{
-  --paper:#FBFAF7; --sheet:#FFFFFF; --ink:#1A1A1F; --muted:#686771; --line:#E6E3DA; --line-strong:#D3CFC3;
-  --proof:#D62839; --proof-soft:#FBE6E8; --mark:#FFE45C;
-  --crit:#D62839; --crit-soft:#FBE6E8; --imp:#C26A00; --imp-soft:#FCEFD9; --min:#4A5BD4; --min-soft:#E7EAFB; --ok:#1E8A5A;
-  --shadow:0 1px 2px rgba(26,26,31,.05),0 10px 30px rgba(26,26,31,.06);
-  --f-display:"Instrument Serif",Georgia,"Times New Roman",serif;
-  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --paper:#FFF7F2; --sheet:#FFFFFF; --bg:#FFFFFF; --ink:#3C3C3C; --muted:#6B6B6B; --line:#F3E5DF; --line-strong:#E8D3CB;
+  --proof:#FA2D0A; --proof-soft:#FFE8E3; --mark:#FFD20F; --orange:#FF8200; --pink:#FF87B4;
+  --crit:#EC0900; --crit-soft:#FFE5E2; --imp:#B85600; --imp-soft:#FFE9D4; --min:#D32D6D; --min-soft:#FFE1EC; --ok:#1E7F4F;
+  --grad-btn:linear-gradient(90deg,#EC0900 0%,#FA2D0A 45%,#FFA140 100%);
+  --shadow:0 1px 2px rgba(60,60,60,.05),0 10px 30px rgba(250,45,10,.06);
+  --f-display:"Outfit",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-body:"Outfit",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-label:"Outfit",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --paper:#141418;--sheet:#1C1C22;--ink:#EDECE8;--muted:#A3A2AB;--line:#2C2C35;--line-strong:#3A3A45;
-  --proof:#FF5A6A;--proof-soft:#3A1A20;--mark:#E8CF3A;
-  --crit:#FF6B79;--crit-soft:#3A1A20;--imp:#F0A23B;--imp-soft:#3A2A14;--min:#8C9BFF;--min-soft:#22264A;--ok:#4FCB8E;
-  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.3);color-scheme:dark}}
-:root[data-theme="dark"]{
-  --paper:#141418;--sheet:#1C1C22;--ink:#EDECE8;--muted:#A3A2AB;--line:#2C2C35;--line-strong:#3A3A45;
-  --proof:#FF5A6A;--proof-soft:#3A1A20;--mark:#E8CF3A;
-  --crit:#FF6B79;--crit-soft:#3A1A20;--imp:#F0A23B;--imp-soft:#3A2A14;--min:#8C9BFF;--min-soft:#22264A;--ok:#4FCB8E;
-  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.3);color-scheme:dark}
 
 *{box-sizing:border-box}
-body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 60px}
 .wrap{max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:24px}
 
@@ -42,7 +35,7 @@ header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-be
 h1{font-family:var(--f-display);font-weight:400;font-size:clamp(38px,6vw,56px);line-height:1;margin:0;letter-spacing:-.01em}
 h1 em{color:var(--proof);font-style:italic}
 .lede{margin:6px 0 0;color:var(--muted);max-width:62ch}
-.eyebrow{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.eyebrow{font-family:var(--f-label);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 
 .panel{background:var(--sheet);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
 .form{padding:20px;display:grid;gap:16px}
@@ -60,7 +53,7 @@ input:focus,textarea:focus,button:focus-visible,.drop:focus-visible,.issue:focus
 .thumbs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
 .thumb{position:relative;width:76px;height:76px;border-radius:8px;overflow:hidden;border:1px solid var(--line-strong);background:var(--sheet)}
 .thumb img{width:100%;height:100%;object-fit:cover;object-position:top}
-.thumb span{position:absolute;left:0;right:0;bottom:0;font-size:10px;font-family:var(--f-mono);background:rgba(0,0,0,.6);color:#fff;padding:2px 4px}
+.thumb span{position:absolute;left:0;right:0;bottom:0;font-size:10px;font-family:var(--f-label);background:rgba(0,0,0,.6);color:#fff;padding:2px 4px}
 .thumb button{position:absolute;top:2px;right:2px;width:20px;height:20px;padding:0;border-radius:50%;border:none;background:rgba(0,0,0,.65);color:#fff;font-size:12px;line-height:20px;cursor:pointer}
 
 .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
@@ -84,7 +77,7 @@ button:disabled{opacity:.5;cursor:progress}
 .score{width:116px;height:116px;border-radius:50%;display:grid;place-items:center;position:relative}
 .score svg{position:absolute;inset:0;transform:rotate(-90deg)}
 .score b{font-family:var(--f-display);font-weight:400;font-size:46px;line-height:1}
-.score small{display:block;font-family:var(--f-mono);font-size:11px;color:var(--muted);text-align:center}
+.score small{display:block;font-family:var(--f-label);font-size:11px;color:var(--muted);text-align:center}
 .sum-text{display:grid;gap:10px;min-width:0}
 .sum-text h2{font-family:var(--f-display);font-weight:400;font-size:28px;margin:0;line-height:1.15}
 .sum-text p{margin:0;color:var(--muted);max-width:75ch}
@@ -95,12 +88,12 @@ button:disabled{opacity:.5;cursor:progress}
 .p-crit{background:var(--crit-soft);color:var(--crit)} .p-crit i{background:var(--crit)}
 .p-imp{background:var(--imp-soft);color:var(--imp)} .p-imp i{background:var(--imp)}
 .p-min{background:var(--min-soft);color:var(--min)} .p-min i{background:var(--min)}
-.badge{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--mark);color:#1A1A1F}
+.badge{font-family:var(--f-label);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--mark);color:#1A1A1F}
 
 .filters{display:flex;flex-wrap:wrap;gap:6px}
 .chip{padding:6px 12px;font-size:13px;font-weight:500;background:var(--sheet);border:1px solid var(--line-strong);color:var(--ink)}
 .chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.chip span{font-family:var(--f-mono);font-size:11px;opacity:.7;margin-left:4px}
+.chip span{font-family:var(--f-label);font-size:11px;opacity:.7;margin-left:4px}
 
 .report{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:20px;align-items:start}
 @media (max-width:900px){.report{grid-template-columns:1fr}}
@@ -110,13 +103,13 @@ button:disabled{opacity:.5;cursor:progress}
 .issue.crit{border-left-color:var(--crit)} .issue.imp{border-left-color:var(--imp)}
 .issue.active{border-color:var(--ink);border-left-width:4px;box-shadow:var(--shadow)}
 .issue-top{display:flex;gap:8px;align-items:baseline}
-.num{font-family:var(--f-mono);font-size:12px;width:22px;height:22px;border-radius:50%;background:var(--ink);color:var(--paper);display:inline-grid;place-items:center;flex:none}
+.num{font-family:var(--f-label);font-size:12px;width:22px;height:22px;border-radius:50%;background:var(--ink);color:var(--paper);display:inline-grid;place-items:center;flex:none}
 .issue h3{font-size:15px;margin:0;line-height:1.3}
-.meta{font-family:var(--f-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.meta{font-family:var(--f-label);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
 .issue p{margin:0;font-size:13.5px;color:var(--muted)}
 .fix{font-size:13.5px;background:var(--paper);border-radius:8px;padding:7px 10px;border:1px dashed var(--line-strong)}
 .fix b{color:var(--ok)}
-.quote{font-family:var(--f-mono);font-size:12.5px;background:var(--proof-soft);color:var(--proof);padding:1px 6px;border-radius:4px}
+.quote{font-family:var(--f-label);font-size:12.5px;background:var(--proof-soft);color:var(--proof);padding:1px 6px;border-radius:4px}
 
 .viewer{position:sticky;top:12px;display:grid;gap:10px;min-width:0}
 .vtabs{display:flex;gap:6px;flex-wrap:wrap}
@@ -126,7 +119,7 @@ button:disabled{opacity:.5;cursor:progress}
 .box{position:absolute;border:2.5px solid var(--min);border-radius:6px;background:color-mix(in srgb,var(--min) 10%,transparent);cursor:pointer;transition:box-shadow .2s}
 .box.crit{border-color:var(--crit);background:color-mix(in srgb,var(--crit) 10%,transparent)}
 .box.imp{border-color:var(--imp);background:color-mix(in srgb,var(--imp) 10%,transparent)}
-.box b{position:absolute;top:-12px;left:-12px;width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--paper);font-family:var(--f-mono);font-size:12px;display:grid;place-items:center;font-weight:500}
+.box b{position:absolute;top:-12px;left:-12px;width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--paper);font-family:var(--f-label);font-size:12px;display:grid;place-items:center;font-weight:500}
 .box.crit b{background:var(--crit)} .box.imp b{background:var(--imp)} .box.min b{background:var(--min)} .box.theme b{background:var(--muted)}
 .box b{color:#fff!important}
 .box.active{box-shadow:0 0 0 4px var(--mark),0 0 0 9999px rgba(10,10,15,.35);z-index:2}
@@ -140,20 +133,20 @@ footer{font-size:12.5px;color:var(--muted)}
 .mes-head strong{font-size:15px}
 .muted-s{font-size:13px;color:var(--muted)}
 .steps{margin:0;padding-left:20px;display:grid;gap:8px;font-size:13.5px}
-.steps i{font-style:normal;font-family:var(--f-mono);font-size:12.5px;background:var(--sheet);border:1px solid var(--line);padding:0 5px;border-radius:4px}
+.steps i{font-style:normal;font-family:var(--f-label);font-size:12.5px;background:var(--sheet);border:1px solid var(--line);padding:0 5px;border-radius:4px}
 .sm{padding:7px 14px;font-size:13px}
 .btn-link{background:none;border:none;padding:4px 2px;color:var(--muted);font-weight:500;font-size:13px;text-decoration:underline;text-underline-offset:3px;border-radius:4px}
 .mono-in{font-family:var(--f-mono);font-size:12px;min-height:72px}
 .mes-status{font-size:13.5px;display:grid;gap:8px}
 .mes-status .row{gap:6px}
-.tag{font-family:var(--f-mono);font-size:11.5px;padding:2px 8px;border-radius:999px;background:var(--sheet);border:1px solid var(--line-strong)}
+.tag{font-family:var(--f-label);font-size:11.5px;padding:2px 8px;border-radius:999px;background:var(--sheet);border:1px solid var(--line-strong)}
 .tag.warn{border-color:var(--imp);color:var(--imp)}
 .tag.good{border-color:var(--ok);color:var(--ok)}
 .vnote{font-size:12.5px;color:var(--muted)}
 .tech{font-size:12.5px;color:var(--muted)}
-.tech summary{cursor:pointer;font-family:var(--f-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase}
+.tech summary{cursor:pointer;font-family:var(--f-label);font-size:11px;letter-spacing:.04em;text-transform:uppercase}
 .tech code{display:block;margin-top:6px;font-family:var(--f-mono);font-size:11.5px;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:6px 8px;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--ink)}
-.lame-tag{font-family:var(--f-mono);font-size:11px;padding:1px 7px;border-radius:999px;background:var(--min-soft);color:var(--min);letter-spacing:.02em;text-transform:none}
+.lame-tag{font-family:var(--f-label);font-size:11px;padding:1px 7px;border-radius:999px;background:var(--min-soft);color:var(--min);letter-spacing:.02em;text-transform:none}
 .sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:6px 2px 0}
 .sec-h h3{margin:0;font-family:var(--f-display);font-weight:400;font-size:22px}
 .sec-h span{font-size:12.5px;color:var(--muted)}
@@ -165,7 +158,7 @@ footer{font-size:12.5px;color:var(--muted)}
 .alt{border:1px solid var(--line);border-radius:12px;padding:12px 16px;display:grid;gap:14px;background:var(--paper)}
 .alt > summary{cursor:pointer;font-weight:600;font-size:14px}
 .alt[open] > summary{margin-bottom:2px}
-.rec{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:999px;background:var(--mark);color:#1A1A1F;margin-left:6px}
+.rec{font-family:var(--f-label);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:999px;background:var(--mark);color:#1A1A1F;margin-left:6px}
 
 /* Bouton « Ce n'est pas un problème » */
 .fp{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
@@ -177,7 +170,7 @@ footer{font-size:12.5px;color:var(--muted)}
 .viewtabs{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .outline{display:grid;gap:8px;max-height:80vh;overflow:auto;padding:2px 4px 2px 2px}
 @media (max-width:900px){.outline{max-height:none}}
-.page-top{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:2px 4px}
+.page-top{font-family:var(--f-label);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:2px 4px}
 .lrow{background:var(--sheet);border:1px solid var(--line);border-left:6px solid var(--ok);border-radius:10px;padding:10px 14px;display:grid;gap:6px}
 .lrow.s-crit{border-left-color:var(--crit)} .lrow.s-imp{border-left-color:var(--imp)} .lrow.s-min{border-left-color:var(--min)}
 .lrow.s-theme{border-left-color:var(--line-strong);border-left-style:dashed}
@@ -196,7 +189,7 @@ footer{font-size:12.5px;color:var(--muted)}
 .ichip:hover{background:var(--paper)}
 .ichip.on{background:var(--mark);color:#1A1A1F}
 .ichip:focus-visible{outline:2px solid var(--proof);outline-offset:1px}
-.ichip b{font-family:var(--f-mono);font-size:11px;font-weight:500;min-width:21px;height:21px;border-radius:50%;display:inline-grid;place-items:center;color:#fff;flex:none}
+.ichip b{font-family:var(--f-label);font-size:11px;font-weight:500;min-width:21px;height:21px;border-radius:50%;display:inline-grid;place-items:center;color:#fff;flex:none}
 .ichip.crit b{background:var(--crit)} .ichip.imp b{background:var(--imp)} .ichip.min b{background:var(--min)} .ichip.theme b{background:var(--muted)}
 .legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--muted)}
 .legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
@@ -207,14 +200,64 @@ footer{font-size:12.5px;color:var(--muted)}
 .rules ul{margin:4px 0 0;padding-left:18px;display:grid;gap:5px;color:var(--muted)}
 .rules .mine-list{display:grid;gap:6px;margin-top:6px}
 .rule-row{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:7px 10px}
-.rule-row small{color:var(--muted);font-family:var(--f-mono);font-size:11px}
+.rule-row small{color:var(--muted);font-family:var(--f-label);font-size:11px}
+
+/* ---------- Charte Harmonie Mutuelle ---------- */
+[hidden]{display:none!important}
+body{position:relative;overflow-x:clip}
+.deco{position:absolute;top:0;right:0;width:min(42vw,520px);height:340px;pointer-events:none;z-index:0}
+.deco svg{width:100%;height:100%;display:block}
+.wrap{position:relative;z-index:1}
+@media (max-width:700px){.deco{width:34vw;height:96px} header{padding-top:64px}}
+header{padding-top:8px}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(40px,6.4vw,64px);line-height:1.02;letter-spacing:-.02em;
+  background:linear-gradient(60deg,#FA2D0A 0%,#FA2D0A 72%,#FF8200 88%,#FFD20F 100%);-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:4px;max-width:12ch}
+.eyebrow{font-weight:600;color:var(--proof);letter-spacing:.12em}
+.lede{color:var(--ink);font-size:16px;max-width:58ch}
+.sum-text h2,.sec-h h3,.rules h3{font-family:var(--f-display);font-weight:700;color:var(--ink);letter-spacing:-.01em}
+.sum-text h2{font-size:26px} .sec-h h3{font-size:19px} .rules h3{font-size:22px}
+.score b{font-family:var(--f-display);font-weight:700;font-size:42px;color:var(--ink)}
+.panel{border-color:var(--line);border-radius:20px}
+.form{border-radius:24px}
+.mes,.alt,.api{border-radius:16px}
+.api{border:1px solid var(--line);padding:16px;display:grid;gap:12px;background:var(--paper)}
+input[type=url],input[type=password],textarea,select{font:inherit;color:var(--ink);background:#fff;border:1px solid var(--line-strong);border-radius:12px;padding:11px 13px;width:100%}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--proof);outline-offset:1px;border-color:var(--proof)}
+.btn-primary{background:var(--grad-btn);color:#fff;font-weight:700;padding:11px 24px;box-shadow:0 6px 16px rgba(250,45,10,.22)}
+.btn-primary:hover:not(:disabled){background:var(--grad-btn);filter:brightness(1.06)}
+.btn-ghost{border-color:var(--proof);color:var(--proof);background:#fff}
+.btn-ghost:hover{background:var(--proof-soft);border-color:var(--proof)}
+.btn-link{color:var(--proof)}
+.chip{border-color:var(--line-strong);font-weight:500}
+.chip[aria-pressed="true"]{background:var(--proof);border-color:var(--proof);color:#fff}
+.check input{accent-color:var(--proof)}
+.status{background:var(--imp-soft)}
+.badge,.rec{background:var(--mark);color:#3C3C3C;font-weight:700}
+.lame-tag{background:#FFE0BF;color:#8A3F00;font-weight:600}
+.num{background:var(--proof);color:#fff}
+.quote{font-family:var(--f-body);font-weight:600;background:var(--proof-soft);color:var(--crit)}
+.issue{border-radius:14px}
+.issue.active{border-color:var(--proof)}
+.fix{background:#fff;border-color:var(--line-strong)}
+.fix b{color:var(--ok)}
+.tag{font-weight:500}
+.drop{border-color:var(--line-strong);background:#fff;border-radius:14px}
+.drop.over{border-color:var(--proof);background:var(--proof-soft)}
+.stage{border-radius:14px}
+.box.active{box-shadow:0 0 0 4px var(--mark),0 0 0 9999px rgba(60,60,60,.32)}
+.notice{background:#FFF4C3}
+.notice.soft{background:var(--paper)}
+.how,.rules{border-radius:20px}
+.rule-row{background:var(--paper)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 
+<div class="deco" aria-hidden="true"><svg viewBox="0 0 520 340" preserveAspectRatio="xMaxYMin slice"><defs><linearGradient id="hmgrad" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD20F"/><stop offset=".45" stop-color="#FF8200"/><stop offset="1" stop-color="#FA2D0A"/></linearGradient></defs><path d="M589.2 178.4Q572.1 242.1 508.4 259.2L346.1 302.7Q282.4 319.8 235.7 273.1L116.9 154.3Q70.2 107.6 87.3 43.9L130.8 -118.4Q147.9 -182.1 211.6 -199.2L373.9 -242.7Q437.6 -259.8 484.3 -213.1L603.1 -94.3Q649.8 -47.6 632.7 16.1Z" fill="url(#hmgrad)"/></svg></div>
 <div class="wrap">
   <header>
     <div>
       <div class="eyebrow">Audit de pages Drupal par l'IA</div>
-      <h1>Inspecteur de <em>page</em></h1>
+      <h1>inspecteur de page</h1>
       <p class="lede">Mesure une page avec le favori « Inspecter » : l'outil teste les questions et menus dépliants, les liens internes et les lames, puis l'IA relit tout le texte. Le design des lames est signalé à part, pour l'équipe technique.</p>
     </div>
   </header>
@@ -257,6 +300,21 @@ footer{font-size:12.5px;color:var(--muted)}
       </div>
     </details>
 
+    <div class="api" id="api" hidden>
+      <div class="mes-head">
+        <span class="eyebrow">Relecture du texte par l'IA</span>
+        <strong>Hors de Claude : clé API Anthropic (facultative)</strong>
+        <span class="muted-s">Sans clé, l'audit fait tous les contrôles automatiques (questions et menus dépliants, liens internes, lames vides, titres) mais ne relit pas le texte. Avec une clé, Claude relit aussi tout le texte. La clé reste dans ce navigateur et n'est envoyée qu'à Anthropic.</span>
+      </div>
+      <div class="form-grid">
+        <label class="f" for="apikey">Clé API <input type="password" id="apikey" placeholder="sk-ant-…" autocomplete="off" spellcheck="false"></label>
+        <label class="f" for="model">Modèle
+          <select id="model"><option value="claude-opus-5-5">Claude Opus 5.5 (plus précis)</option><option value="claude-sonnet-5-5">Claude Sonnet 5.5 (plus rapide, moins cher)</option></select>
+        </label>
+      </div>
+      <label class="check" for="remember"><input type="checkbox" id="remember"> Mémoriser la clé dans ce navigateur</label>
+    </div>
+
     <div class="row spread">
       <label class="check" for="charte"><input type="checkbox" id="charte"> Vérifier aussi la charte graphique Harmonie Mutuelle 2026</label>
       <div class="row">
@@ -270,7 +328,7 @@ footer{font-size:12.5px;color:var(--muted)}
   <section id="report-wrap" style="display:grid;gap:16px" aria-label="Rapport d'audit"></section>
 
   <section class="panel rules" id="rules" aria-label="Règles d'audit"></section>
-  <footer>L'analyse utilise ton propre compte Claude. Les mesures et captures restent dans ce navigateur et ne sont envoyées qu'à Claude, au moment de l'audit.</footer>
+  <footer>Dans Claude, la relecture par l'IA utilise ton compte Claude. Ailleurs, elle utilise la clé API saisie, ou l'audit se limite aux contrôles automatiques. Les mesures et captures restent dans ce navigateur et ne sont envoyées qu'à Claude, au moment de l'audit.</footer>
 </div>
 
 <script>
@@ -301,8 +359,18 @@ const BUILTIN = [
   "La mise en forme du texte (gras, couleur ou police ajoutée dans l'éditeur) n'est pas analysée.",
   "Une question ou un menu dépliant n'est signalé que si, après un clic simulé comme celui d'un visiteur et 2,5 secondes d'attente, la réponse reste masquée et la page n'a réagi d'aucune façon. Dans le doute, il est classé « à vérifier à la main », jamais en erreur.",
   "Une réponse n'est dite « vide » que si la zone qui s'ouvre a été identifiée avec certitude et ne contient ni texte, ni image, ni lien.",
-  "Un lien interne n'est signalé cassé que si la page visée répond « introuvable » (404, 410) ou en erreur serveur."
+  "Un lien interne n'est signalé cassé que si la page visée répond « introuvable » (404, 410) ou en erreur serveur.",
+  "Les espaces autour de la ponctuation (avant ou après un point, une virgule, deux-points, un point-virgule, un point d'exclamation ou d'interrogation, des guillemets) ne sont pas signalés.",
+  "Les majuscules après deux-points ne sont pas signalées.",
+  "Les âges d'accès qui semblent incohérents entre eux (par exemple « dès 6 ans » ici, « à partir de 8 ans » ailleurs) ne sont pas signalés."
 ];
+/* Filet de sécurité : écarte tout point de l'IA qui relève de ces exclusions, même si elle les mentionne malgré la consigne */
+const EXCLUDED = [
+  t => /espace|insécable/i.test(t) && /(ponctuation|point|virgule|deux[- ]points|guillemet|«|»|!|\?|;|:)/i.test(t),
+  t => /majuscule/i.test(t) && /(deux[- ]points|:)/i.test(t),
+  t => /(^|[^\p{L}])(âges?|ans)(?![\p{L}])/iu.test(t) && /(incohér|contradi|différen|ne correspond|divergen|pas le même|pas les mêmes)/i.test(t)
+];
+const excluded = p => { const t = [p.titre, p.description, p.extrait, p.correction].join(" "); return EXCLUDED.some(f => f(t)); };
 const RULE_LABELS = {"int-rien":"les questions ou menus qui ne s'ouvrent pas", "int-vide":"les réponses vides", "lien-mort":"les liens internes cassés", "lien-http":"les liens en http",
   "lame-vide":"les lames vides", "h1-absent":"l'absence de titre H1", "h1-multiple":"les titres H1 multiples", "titre-vide":"les titres vides", "titre-saut":"les niveaux de titre sautés"};
 const RKEY = "inspecteur-regles-v1";
@@ -321,8 +389,37 @@ let sample = null, limits = null;
 (async () => {
   try { sample = await window.claude?.use?.("sample"); } catch { sample = null; }
   if (sample) { try { limits = await sample.limits(); } catch { limits = null; } }
-  if (!sample) setStatus("L'analyse par l'IA n'est pas disponible dans cette vue. Le rapport d'exemple reste consultable.", "err");
+  $("#api").hidden = !!sample;
 })();
+const KKEY = "inspecteur-cle-api", MKEY = "inspecteur-modele";
+try { const k = localStorage.getItem(KKEY); if (k) { $("#apikey").value = k; $("#remember").checked = true; } const m = localStorage.getItem(MKEY); if (m) $("#model").value = m; } catch {}
+const apiKey = () => $("#apikey").value.trim();
+const keepKey = () => { try { if ($("#remember").checked && apiKey()) localStorage.setItem(KKEY, apiKey()); else localStorage.removeItem(KKEY); localStorage.setItem(MKEY, $("#model").value); } catch {} };
+$("#remember").onchange = keepKey; $("#apikey").onchange = keepKey; $("#model").onchange = keepKey;
+function parseLoose(text){
+  const t = String(text || "").trim();
+  try { return JSON.parse(t); } catch {}
+  const f = t.match(/```(?:json)?\s*([\s\S]*?)```/); if (f) { try { return JSON.parse(f[1]); } catch {} }
+  const a = t.search(/[\[{]/), b = Math.max(t.lastIndexOf("}"), t.lastIndexOf("]"));
+  if (a >= 0 && b > a) { try { return JSON.parse(t.slice(a, b + 1)); } catch {} }
+  throw {code:"invalid_json"};
+}
+const toB64 = blob => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(String(r.result).split(",")[1]); r.onerror = rej; r.readAsDataURL(blob); });
+/* Appel direct à l'API Anthropic depuis le navigateur (version GitHub) */
+async function callApi(prompt, blobs){
+  const content = [];
+  for (const b of blobs || []) content.push({type:"image", source:{type:"base64", media_type:"image/jpeg", data: await toB64(b)}});
+  content.push({type:"text", text: prompt + "\n\nRéponds uniquement avec le JSON demandé, sans texte autour."});
+  let r;
+  try {
+    r = await fetch("https://api.anthropic.com/v1/messages", {method:"POST", signal: ctl?.signal,
+      headers:{"content-type":"application/json", "x-api-key": apiKey(), "anthropic-version":"2023-06-01", "anthropic-dangerous-direct-browser-access":"true"},
+      body: JSON.stringify({model: $("#model").value, max_tokens: 12000, messages:[{role:"user", content}]})});
+  } catch (e) { throw {code: e?.name === "AbortError" ? "cancelled" : "network"}; }
+  if (!r.ok) { const j = await r.json().catch(() => ({})); throw {code:"api", status:r.status, message: j?.error?.message || ""}; }
+  const j = await r.json();
+  return parseLoose((j.content || []).filter(c => c.type === "text").map(c => c.text).join(""));
+}
 function setStatus(msg, kind){
   const el = $("#status");
   if (!msg) { el.hidden = true; return; }
@@ -330,10 +427,12 @@ function setStatus(msg, kind){
   el.innerHTML = kind === "load" ? `<span class="dots">${esc(msg)}</span>` : esc(msg);
 }
 function errText(e){
+  if (e?.code === "api") return e.status === 401 ? "Clé API refusée : vérifie-la, ou demande une nouvelle clé." : e.status === 403 || e.status === 404 ? "Cette clé n'a pas accès à ce modèle. Essaie l'autre modèle." : e.status === 429 ? "Limite de l'API atteinte. Réessaie dans quelques minutes." : e.status >= 500 ? "Le service d'Anthropic est momentanément surchargé. Réessaie dans un instant." : `L'API a refusé la demande (erreur ${e.status}). ${e.message || ""}`;
+  if (e?.code === "network") return "Impossible de joindre l'API Anthropic depuis ce réseau (pare-feu ou proxy d'entreprise ?). L'audit sans IA reste possible : vide le champ de la clé.";
   const M = {not_granted:"Tu n'as pas autorisé cette page à utiliser Claude.", sampling_disabled:"Claude n'est pas disponible pour ce compte.",
     rate_limited:"Trop de demandes pour le moment. Réessaie dans quelques minutes.", session_expired:"Ta session a expiré. Reconnecte-toi à Claude puis relance.",
     image_rejected:"La capture a été refusée (format ou taille). Essaie une image PNG ou JPEG plus légère.", images_unavailable:"Cette vue ne peut pas envoyer d'images à Claude. Utilise le favori « Inspecter ».",
-    prompt_too_large:"La page est trop grande pour un seul audit.", invalid_json:"La réponse n'était pas exploitable. Relance l'audit.", refused:"Claude n'a pas pu analyser ce contenu.", cancelled:"Audit annulé."};
+    prompt_too_large:"La page est trop grande pour un seul audit.", need_ai:"L'analyse d'une capture seule demande l'IA : colle plutôt les mesures du favori « Inspecter », ou ajoute une clé API.", invalid_json:"La réponse n'était pas exploitable. Relance l'audit.", refused:"Claude n'a pas pu analyser ce contenu.", cancelled:"Audit annulé."};
   return M[e?.code] || "La connexion à Claude a échoué. Relance l'audit dans un instant.";
 }
 
@@ -479,14 +578,17 @@ const CHARTE = `Charte graphique Harmonie Mutuelle 2026 :
 - Boutons : gélule en dégradé rouge-orange vers jaune, de gauche à droite.
 - La marque s'écrit toujours « Harmonie Mutuelle ». Ton : réassurance, expertise, pédagogie (phrases courtes), proximité, collectif, positif.`;
 const CONTEXT = `Contexte : site Drupal construit avec des lames (blocs prédéfinis). Le design des lames (polices, tailles, arrondis, espacements, couleurs, alignements internes) est fixé par le thème : les contributeurs ne peuvent pas le corriger. Classe donc :
-- "theme": false pour ce que le contributeur maîtrise : le texte (orthographe, grammaire, typographie française, cohérence, majuscules, nom de marque) et le contenu saisi ;
+- "theme": false pour ce que le contributeur maîtrise : le texte (orthographe, grammaire, accords, cohérence, nom de marque) et le contenu saisi ;
 - "theme": true pour les défauts de design propres aux lames, à remonter à l'équipe technique.
 Les rapports sont lus par des contributeurs (corrections concrètes, sans jargon) et par l'équipe technique (champ "technique" : sélecteur, valeurs mesurées).`;
 const forbidden = () => `NE SIGNALE JAMAIS (règles de l'équipe) :
 - les images : présence, affichage, texte alternatif, qualité ;
 - les liens : destination, liens « # » vers la page elle-même, liens internes (l'outil s'en charge) ;
 - la mise en forme du texte : gras, italique, couleur ou police ajoutée dans l'éditeur ;
-- le fonctionnement des questions, accordéons et menus dépliants (l'outil les a testés).${rules.length ? `
+- le fonctionnement des questions, accordéons et menus dépliants (l'outil les a testés) ;
+- les espaces autour de la ponctuation : avant ou après . , ; : ! ? « », espaces insécables, doubles espaces ;
+- la présence ou l'absence de majuscule après deux-points ;
+- les âges d'accès ou âges minimum qui paraissent incohérents entre eux.${rules.length ? `
 L'utilisateur a aussi indiqué que ces points ne sont PAS des problèmes, ne les signale pas :
 ${rules.map(r => "- " + r.label).join("\n")}` : ""}`;
 
@@ -522,10 +624,8 @@ ${det.length ? det.map(p => `- [${p.gravite}] ${p.titre}${p.lame ? " (lame " + p
 DÉFAUTS DE DESIGN PROBABLES (chiffres fiables) : confirme ceux qui sont réels et visibles, avec "theme": true, ou écarte-les :
 ${cand.length ? cand.map(a => `- [${a.type}] ${a.msg}${a.ids.length ? " (éléments " + a.ids.map(i => "#" + i).join(", ") + ")" : ""}`).join("\n") : "- aucun"}
 
-INDICES TYPOGRAPHIQUES (à vérifier) :
-${hints.length ? hints.map(h => "- " + h).join("\n") : "- aucun"}
 ${charte ? "\n" + CHARTE + "\nPour la charte : catégorie \"charte\", theme true si cela relève du design des lames, false si c'est un texte saisi.\n" : ""}
-Relève tous les problèmes de TEXTE réels (fautes, accords, accents, typographie française, majuscules, incohérences), y compris dans les réponses dépliées, puis les défauts de design confirmés. N'invente rien ; en cas de doute, ne signale pas.
+Relève tous les problèmes de TEXTE réels (fautes d'orthographe, accords, accents, mots manquants ou en double, incohérences), y compris dans les réponses dépliées, puis les défauts de design confirmés. N'invente rien ; en cas de doute, ne signale pas.
 Pour chaque problème : identifiants des éléments concernés, gravité ("critique", "importante" ou "mineure"), correction concrète. Phrases courtes, en français.
 
 Réponds uniquement avec ce JSON :
@@ -542,13 +642,17 @@ const sortIssues = arr => arr.sort((a, b) => (a.theme - b.theme) || (ORDER[a.gra
 
 function buildMesReport(d, data, url, isSample, cap){
   const det = deterministic(d), byId = new Map(d.el.map(e => [e.i, e]));
-  const ai = (Array.isArray(data?.problemes) ? data.problemes : []).filter(p => !AI_BANNED.has(p.categorie)).map(p => {
+  const ai = (Array.isArray(data?.problemes) ? data.problemes : []).filter(p => !AI_BANNED.has(p.categorie) && !excluded(p)).map(p => {
     const els = (Array.isArray(p.elements) ? p.elements : []).map(Number).map(i => byId.get(i)).filter(Boolean);
     const lm = els.find(e => e.lm != null)?.lm;
     return normIssue(p, {lk: lm ?? null, lameType: d.ltype(lm), lame: d.lname(lm), px: pxOf(els)});
   });
   const c = k => d.inter.filter(x => x.res === k);
-  return {sample:!!isSample, mode:"mesures", d, url: url || d.url, note: Math.round(cl(+data?.note / 100) * 100) || 0, resume: String(data?.resume || ""),
+  const noAI = !data;
+  const pts = det.filter(p => !p.theme && !ruled(p)).reduce((s, p) => s + ({critique:15, importante:7, mineure:3})[p.gravite], 0);
+  return {sample:!!isSample, mode:"mesures", d, url: url || d.url, noAI,
+    note: noAI ? Math.max(0, 100 - pts) : Math.round(cl(+data?.note / 100) * 100) || 0,
+    resume: noAI ? "Audit sans IA : contrôles automatiques uniquement (questions et menus dépliants, liens internes, lames vides, titres). Le texte n'a pas été relu." : String(data?.resume || ""),
     problemes: sortIssues([...det, ...ai]), cap: cap || null,
     stats:{lames:d.lames.length, inter:d.inter.length, ok:c("ok").length, ko:c("rien").length + c("vide").length, unc:c("incertain")}};
 }
@@ -580,7 +684,7 @@ Page : ${url || "(lien non fourni)"}
 Images jointes = captures découpées en tranches verticales :
 ${tiles.map((t, i) => `Image ${i} : capture ${t.capture} (${t.orient}), de ${Math.round(t.top * 100)} % à ${Math.round((t.top + t.height) * 100)} % de sa hauteur.`).join("\n")}
 ${text ? `Texte copié depuis la page (fiable pour l'orthographe) :\n"""\n${text.slice(0, 20000)}\n"""\n` : ""}
-Relève les problèmes réels : texte (fautes, accords, typographie française, cohérence), puis défauts de design des lames avec "theme": true. N'invente rien ; en cas de doute, ne signale pas.
+Relève les problèmes réels : texte (fautes d'orthographe, accords, accents, mots manquants ou en double, cohérence), puis défauts de design des lames avec "theme": true. N'invente rien ; en cas de doute, ne signale pas.
 ${charte ? CHARTE + "\n" : ""}
 Pour chaque problème : index de l'image où il est le plus visible et cadre serré en fractions de CETTE image (x, y = coin haut gauche ; w, h ; entre 0 et 1), ou "zone": null.
 Réponds uniquement avec ce JSON :
@@ -642,7 +746,6 @@ $("#copy-con").onclick = e => copyText(e.currentTarget, MES_CODE, "Code copié")
 let ctl = null;
 async function run(){
   if (st.busy) return;
-  if (!sample) { setStatus("L'analyse par l'IA n'est pas disponible dans cette vue.", "err"); return; }
   const url = $("#url").value.trim(), charte = $("#charte").checked;
   if (!st.mes && !st.files.length) { setStatus("Colle les mesures relevées par le favori « Inspecter », ou ajoute une capture de la page.", "err"); $("#mes").focus(); return; }
   st.busy = true; $("#run").disabled = true;
@@ -650,16 +753,23 @@ async function run(){
     ctl = new AbortController();
     if (st.mes) {
       const d = st.mes, det = deterministic(d);
-      setStatus(`L'outil a trouvé ${det.length} ${plural(det.length, "problème")}. Claude relit le texte et le design, compte une à deux minutes`, "load");
-      const data = await sample.json(buildMesPrompt(d, url, charte, det, themeCandidates(d), typoHints(d)), {modelTier:"complex", cache:false, signal:ctl.signal});
+      let data = null;
+      const prompt = () => buildMesPrompt(d, url, charte, det, themeCandidates(d), []);
+      if (sample || apiKey()) {
+        setStatus(`L'outil a trouvé ${det.length} ${plural(det.length, "problème")}. Claude relit le texte et le design, compte une à deux minutes`, "load");
+        data = sample ? await sample.json(prompt(), {modelTier:"complex", cache:false, signal:ctl.signal}) : await callApi(prompt());
+      }
       st.report = buildMesReport(d, data, url, false, st.files[0] ? {src: st.files[0].url} : null);
     } else {
-      if (!limits?.images) throw {code:"images_unavailable"};
+      if (!sample && !apiKey()) throw {code:"need_ai"};
+      const maxImg = sample ? (limits?.images?.maxCount || 0) : 8;
+      if (!maxImg) throw {code:"images_unavailable"};
       setStatus("Préparation de la capture", "load");
-      const tiles = await makeTiles(limits.images.maxCount || 5);
+      const tiles = await makeTiles(maxImg);
       setStatus(`Claude inspecte ${tiles.length} ${plural(tiles.length, "tranche")} de page, compte une à deux minutes`, "load");
-      const data = await sample.json(buildCapPrompt(tiles, $("#text").value.trim(), url, charte), {images: tiles.map(t => t.blob), modelTier:"complex", cache:false, signal:ctl.signal});
-      const probs = (Array.isArray(data?.problemes) ? data.problemes : []).filter(p => !AI_BANNED.has(p.categorie)).map(p => {
+      const cp = buildCapPrompt(tiles, $("#text").value.trim(), url, charte);
+      const data = sample ? await sample.json(cp, {images: tiles.map(t => t.blob), modelTier:"complex", cache:false, signal:ctl.signal}) : await callApi(cp, tiles.map(t => t.blob));
+      const probs = (Array.isArray(data?.problemes) ? data.problemes : []).filter(p => !AI_BANNED.has(p.categorie) && !excluded(p)).map(p => {
         const t = tiles[Number.isInteger(+p.image) ? +p.image : 0] || tiles[0], z = p.zone;
         const zone = z && [z.x, z.y, z.w, z.h].every(v => Number.isFinite(+v)) ? {x:cl(+z.x), w:cl(+z.w), y:t.top + cl(+z.y) * t.height, h:cl(+z.h) * t.height} : null;
         return normIssue(p, {capture:t.capture, zone, lame:String(p.lame || ""), lameType:String(p.lame || "")});
@@ -712,6 +822,7 @@ function renderReport(){
       </div>
     </div>
     ${s && s.unc.length ? `<div class="notice soft"><b>À vérifier à la main (${s.unc.length})</b> : l'outil n'a pas pu confirmer automatiquement l'ouverture de ${q3(s.unc.map(x => x.q))}. Ce n'est pas une erreur : ouvre-${s.unc.length > 1 ? "les" : "la"} simplement pour contrôler.</div>` : ""}
+    ${r.noAI ? `<div class="notice">Le texte n'a pas été relu par l'IA. Pour une relecture complète, ajoute une clé API Anthropic dans le formulaire, ou ouvre l'outil dans Claude.</div>` : ""}
     ${r.mode === "captures" ? `<div class="notice">Audit fait sur une capture seule : les questions, menus dépliants et liens n'ont pas été testés. Utilise le favori « Inspecter » pour les vérifier.</div>` : ""}
     <div class="row spread">
       <div class="filters" role="group" aria-label="Filtrer par catégorie">
