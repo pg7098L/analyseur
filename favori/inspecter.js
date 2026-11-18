@@ -11,10 +11,11 @@ const shown=el=>{if(!el||!el.isConnected)return false;const r=el.getBoundingClie
 const bx=el=>{const r=el.getBoundingClientRect();return{x:Math.round(r.left+scrollX),y:Math.round(r.top+scrollY),w:Math.round(r.width),h:Math.round(r.height)}};
 const tech=el=>el.tagName.toLowerCase()+(el.id?'#'+el.id:'')+(typeof el.className==='string'&&el.className.trim()?'.'+el.className.trim().split(/\s+/).slice(0,3).join('.'):'');
 const P=document.createElement('div');
-P.style.cssText='position:fixed;z-index:2147483647;top:16px;right:16px;width:340px;background:#1A1A1F;color:#fff;font:14px/1.45 system-ui,sans-serif;padding:14px 16px;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.35);text-align:left;pointer-events:none';
-P.innerHTML='<b>Inspecteur de page</b><div data-s style="margin-top:6px;opacity:.85">Mesure de la page…</div>';
+P.style.cssText='position:fixed;z-index:2147483647;top:16px;right:16px;width:340px;background:#fff;color:#3C3C3C;font:14px/1.45 Outfit,system-ui,-apple-system,"Segoe UI",sans-serif;padding:14px 16px 16px;border-radius:16px;border-top:4px solid #FA2D0A;box-shadow:0 14px 44px rgba(60,60,60,.22);text-align:left;pointer-events:none;opacity:0;transform:translateY(-10px);transition:opacity .35s cubic-bezier(.16,1,.3,1),transform .35s cubic-bezier(.16,1,.3,1)';
+P.innerHTML='<b style="color:#FA2D0A">Inspecteur de page</b><div data-s style="margin-top:6px">Mesure de la page…</div><div style="height:4px;margin-top:10px;border-radius:4px;background:rgba(250,45,10,.14);overflow:hidden"><i data-b style="display:block;height:100%;width:3%;border-radius:4px;background:linear-gradient(90deg,#EC0900,#FA2D0A 45%,#FFA140);transition:width .35s cubic-bezier(.16,1,.3,1)"></i></div>';
 document.body.appendChild(P);
-const S=t=>{const e=P.querySelector('[data-s]');if(e)e.textContent=t};
+const S=(t,f)=>{const e=P.querySelector('[data-s]');if(e)e.textContent=t;const b=P.querySelector('[data-b]');if(b&&f!=null)b.style.width=Math.round(Math.max(3,Math.min(100,f*100)))+'%'};
+requestAnimationFrame(()=>requestAnimationFrame(()=>{P.style.opacity='1';P.style.transform='none'}));
 const mine=el=>el===P||P.contains(el);
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 await wait(30);
@@ -57,7 +58,7 @@ const o=Object.assign({tx:((a.innerText||'').trim()||a.getAttribute('aria-label'
 if(/^http:\/\//i.test(href)&&location.protocol==='https:'){o.pb='http';links.push(o);return}
 try{const u=new URL(href,location.href);u.hash='';if(u.origin===location.origin&&u.href!==location.href.split('#')[0]&&!seenHref.has(u.href)&&seenHref.size<80)seenHref.set(u.href,o)}catch(e){}});
 const hrefs=[...seenHref.entries()];
-for(let n=0;n<hrefs.length;n+=8){S('Vérification des liens internes '+Math.min(n+8,hrefs.length)+'/'+hrefs.length+'…');await Promise.all(hrefs.slice(n,n+8).map(async([u,o])=>{try{const ctl=new AbortController(),tm=setTimeout(()=>ctl.abort(),8000);let r=await fetch(u,{method:'HEAD',credentials:'same-origin',redirect:'follow',signal:ctl.signal});if(r.status===405||r.status===501||r.status===403)r=await fetch(u,{method:'GET',credentials:'same-origin',redirect:'follow',signal:ctl.signal});clearTimeout(tm);if(r.status===404||r.status===410||r.status>=500){o.pb='mort';o.code=r.status;links.push(o)}}catch(e){}}))}
+for(let n=0;n<hrefs.length;n+=8){S('Vérification des liens internes '+Math.min(n+8,hrefs.length)+'/'+hrefs.length+'…',.1+.3*Math.min(n+8,hrefs.length)/hrefs.length);await Promise.all(hrefs.slice(n,n+8).map(async([u,o])=>{try{const ctl=new AbortController(),tm=setTimeout(()=>ctl.abort(),8000);let r=await fetch(u,{method:'HEAD',credentials:'same-origin',redirect:'follow',signal:ctl.signal});if(r.status===405||r.status===501||r.status===403)r=await fetch(u,{method:'GET',credentials:'same-origin',redirect:'follow',signal:ctl.signal});clearTimeout(tm);if(r.status===404||r.status===410||r.status>=500){o.pb='mort';o.code=r.status;links.push(o)}}catch(e){}}))}
 
 /* Questions, accordéons, menus dépliants : test au plus près d'un vrai clic.
    Règle de prudence : on ne conclut « ne s'ouvre pas » que si la page n'a réagi d'AUCUNE façon
@@ -76,7 +77,7 @@ const isOpen=t=>{const id=(t.getAttribute('aria-controls')||'').split(/\s+/)[0];
 const init=cands.map(isOpen);
 const inter=[];
 for(let n=0;n<cands.length;n++){
-const t=cands[n];S('Test des questions et menus dépliants '+(n+1)+'/'+cands.length+'…');
+const t=cands[n];S('Test des questions et menus dépliants '+(n+1)+'/'+cands.length+'…',.4+.55*n/cands.length);
 const r0=bx(t),isTab=t.getAttribute('role')==='tab',q=(own(t)||(t.innerText||'')).trim().slice(0,140),base=Object.assign({q,kind:t.tagName==='SUMMARY'?'details':isTab?'onglet':'accordeon',lm:lameOf(t),tech:tech(t)},r0);
 if(isTab&&t.getAttribute('aria-selected')==='true'){inter.push(Object.assign(base,{res:'ok',ans:'',why:'onglet déjà actif'}));continue}
 const ctlId=(t.getAttribute('aria-controls')||'').split(/\s+/)[0],tgt=ctlId?document.getElementById(ctlId):(t.tagName==='SUMMARY'?t.parentElement:null);
@@ -104,7 +105,7 @@ else{res='incertain';why=muts||newly.length||hashMoved?'la page réagit mais auc
 inter.push(Object.assign(base,{res,ans:ans.slice(0,600),why}));
 if(!isTab&&((res==='ok'||res==='vide')&&!wasOpen||(wasOpen&&res==='ok'))){await press(t);await settle(regs,1500)}
 }
-for(let n=0;n<cands.length;n++){const t=cands[n];if(init[n]&&!isOpen(t)&&t.getAttribute('role')!=='tab'){S('Remise en état de la page…');await press(t);await settle([itemOf(t)],1500)}}
+for(let n=0;n<cands.length;n++){const t=cands[n];if(init[n]&&!isOpen(t)&&t.getAttribute('role')!=='tab'){S('Remise en état de la page…',.97);await press(t);await settle([itemOf(t)],1500)}}
 document.removeEventListener('click',stopNav,true);document.removeEventListener('submit',stopSubmit,true);
 window.scrollTo(sx0,sy0);
 const drupal=!!document.querySelector('[data-drupal-selector],[data-drupal-link-system-path],[data-history-node-id]')||/drupal/i.test((document.querySelector('meta[name="Generator"],meta[name="generator"]')||{}).content||'');
@@ -113,7 +114,7 @@ const s='INSPECTEUR:'+JSON.stringify(data);
 window.__inspecteur=s;window.__inspRunning=0;
 const c=k=>inter.filter(x=>x.res===k).length,ko=c('rien')+c('vide'),unc=c('incertain');
 P.style.pointerEvents='auto';
-P.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>Inspecteur de page</b><button data-x style="background:none;border:none;color:#fff;font-size:20px;cursor:pointer;line-height:1">×</button></div><div style="margin:6px 0 12px;opacity:.85">'+out.length+' éléments · '+lames.length+' lames · '+inter.length+' questions ou menus testés'+(inter.length?' : '+c('ok')+' OK'+(ko?', <b style="color:#FF8A8A">'+ko+' en échec</b>':'')+(unc?', '+unc+' à vérifier à la main':''):'')+'</div><button data-c style="width:100%;background:#fff;color:#1A1A1F;border:none;border-radius:999px;padding:10px 14px;font:600 14px system-ui,sans-serif;cursor:pointer">Copier les mesures</button><div data-m style="margin-top:8px;font-size:13px;opacity:.85">Puis colle-les dans l’Inspecteur de page.</div>';
+P.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b style="color:#FA2D0A">Inspecteur de page</b><button data-x style="background:none;border:none;color:#3C3C3C;font-size:20px;cursor:pointer;line-height:1">×</button></div><div style="margin:6px 0 12px">'+out.length+' éléments · '+lames.length+' lames · '+inter.length+' questions ou menus testés'+(inter.length?' : '+c('ok')+' OK'+(ko?', <b style="color:#EC0900">'+ko+' en échec</b>':'')+(unc?', '+unc+' à vérifier à la main':''):'')+'</div><button data-c style="width:100%;background:linear-gradient(90deg,#EC0900,#FA2D0A 45%,#FFA140);color:#fff;border:none;border-radius:999px;padding:11px 14px;font:700 14px Outfit,system-ui,sans-serif;cursor:pointer;box-shadow:0 6px 16px rgba(250,45,10,.25)">Copier les mesures</button><div data-m style="margin-top:8px;font-size:13px;color:#6B6B6B">Puis colle-les dans l’Inspecteur de page.</div>';
 P.querySelector('[data-x]').onclick=()=>P.remove();
 P.querySelector('[data-c]').onclick=()=>{const m=P.querySelector('[data-m]');const fb=()=>{let t=P.querySelector('textarea');if(!t){t=document.createElement('textarea');t.style.cssText='width:100%;height:90px;margin-top:8px;font:11px monospace';t.value=s;P.appendChild(t)}t.focus();t.select();let ok=false;try{ok=document.execCommand('copy')}catch(e){}m.textContent=ok?'Copié ! Colle-les dans l’Inspecteur de page.':'Copie le texte ci-dessous avec Ctrl+C.'};if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(s).then(()=>{m.textContent='Copié ! Colle-les dans l’Inspecteur de page.'},fb);else fb()};
 })();

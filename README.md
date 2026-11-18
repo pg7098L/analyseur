@@ -1,6 +1,6 @@
 # Inspecteur de page
 
-Outil d'audit de pages **Drupal** assisté par l'IA, aux couleurs de la charte Harmonie Mutuelle 2026. Il relève les fautes, les questions de FAQ qui ne s'ouvrent pas, les liens internes cassés et les lames vides, puis situe chaque problème sur un plan de la page.
+Outil d'audit de pages **Drupal** assisté par l'IA, aux couleurs de la charte Harmonie Mutuelle 2026, avec un motion design sobre (désactivé quand le système demande de réduire les animations). Il relève les fautes, les questions de FAQ qui ne s'ouvrent pas, les liens internes cassés et les lames vides, puis situe chaque problème sur un plan de la page.
 
 Le rapport est séparé en deux parties :
 - **Pour les contributeurs** : ce qu'ils peuvent corriger eux-mêmes dans Drupal (texte, contenu des lames, réponses de FAQ).
@@ -33,6 +33,21 @@ Le rapport est séparé en deux parties :
 3. **Le rapport** affiche chaque problème avec sa lame, sa gravité, la correction proposée et des détails techniques, sur un plan redessiné de la page ou sur une capture d'écran.
 
 Installer le favori : dans l'application, cliquer sur « Copier le favori », créer un favori dans le navigateur (Ctrl+D puis Modifier), le nommer *Inspecter* et coller le code à la place de l'adresse.
+
+## Ce que le favori récupère
+
+Un clic sur le favori produit un texte qui commence par `INSPECTEUR:`, suivi de données au format JSON : une « photographie chiffrée » de la page telle qu'elle s'affiche dans le navigateur.
+
+| Donnée | Contenu |
+|---|---|
+| `el` | chaque élément visible : position et taille en pixels, police, taille, graisse, couleurs, texte, lame d'appartenance |
+| `lames` | les lames Drupal repérées : type, emplacement, vide ou non |
+| `heads` | les titres H1 à H6 |
+| `inter` | le test de chaque question ou menu dépliant : résultat (`ok`, `rien`, `vide`, `incertain`), explication et texte de la réponse |
+| `links` | les liens internes cassés et les liens en http |
+| `text` | le texte complet de la page |
+
+Le favori ne l'envoie nulle part : il le copie dans le presse-papiers. Les données ne partent vers l'IA qu'au lancement de l'audit. Le favori n'interroge que les pages du site lui-même, pour vérifier les liens internes.
 
 ## Règles d'audit
 
